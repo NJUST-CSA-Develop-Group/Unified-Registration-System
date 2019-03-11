@@ -1,13 +1,12 @@
 <!--index.wxml-->
-<view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
-  </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
+<view class="cu-card">
+  <view wx:for="{{activityList}}" wx:key="{{index}}" class="cu-item shadow-blur">
+    <view class="padding-xl radius shadow-blur bg-gradual-red margin-top" bindtap='entryCard' id='{{index}}'>
+      <view class="text-white text-bold text-xl">{{activityList[index].name}}</view>
+      <view class='content'>
+        <view class="text-white margin-xs margin-top">{{activityList[index].publisher}}</view>
+        <view class='cu-tag bg-green light sm round'>{{activityList[index].endTime}}</view>
+      </view>
+    </view>
   </view>
 </view>
