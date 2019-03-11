@@ -1,2 +1,9 @@
 <!--pages/registration/registration.wxml-->
-<text>pages/registration/registration.wxml</text>
+<view class="cu-bar {{navColor}}" style="padding-top:{{statusBarHeight}}px">
+
+      <view class='action margin'>
+        <text class='icon-back text-white' bindtap='back2list'></text> 
+        <text class='content text-limit-short'>{{title}}</text>
+      </view>
+
+</view>

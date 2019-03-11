@@ -1,3 +1,18 @@
 /**index.wxss**/
 @import "../../component/colorUI/colorui.wxss";
 @import "../../component/colorUI/icon.wxss";
+.text-limit-short {
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.text-limit-long {
+  max-width: 320px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.text-spacing {
+  letter-spacing: 4rpx;
+}
