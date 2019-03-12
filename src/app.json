@@ -2,7 +2,8 @@
   "pages": [
     "pages/index/index",
     "pages/logs/logs",
-    "pages/registration/registration"
+    "pages/registration/registration",
+    "component/tree/tree"
   ],
   "window": {
     "navigationStyle": "custom",

@@ -13,3 +13,6 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.tree-group {
+  background-color: white;
+}

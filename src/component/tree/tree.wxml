@@ -1,0 +1,15 @@
+<!--component/tree/tree.wxml-->
+<view>
+  <view>
+    <!-- <text wx:if='{{ isBranch }}' bindtap='toggle' class='icon-unfold'>{{ open ? '[ - ]' : '[ + ]' }} </text> -->
+    <!-- <text wx:else>[ · ] </text> -->
+    <!-- <text bindtap='tapItem' data-itemid='{{ model.id }}'>{{ model.text }}</text> -->
+    <view class="cu-form-group" style='padding-bottom: 15rpx;'>
+        <view class='title text-bold' bindtap='toggle'>输入框</view>
+        <input placeholder="三字标题" class='radius' name='input'></input>
+    </view>
+  </view>
+  <view style='padding-left: 50rpx;' wx:if='{{ isBranch }}' hidden='{{ !open }}'>
+    <tree wx:for='{{ model.nodes }}' wx:key='id' model='{{ item }}'></tree>
+  </view>
+</view>

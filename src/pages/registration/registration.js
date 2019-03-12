@@ -4,10 +4,57 @@ Page({
   data: {
     title: "返回",
     navColor: "",
-    statusBarHeight: app.globalData.statusBarHeight
+    statusBarHeight: app.globalData.statusBarHeight,
+    id: "",
+    treeData: {
+      text: 'My Tree',
+      id: 0,
+      nodes: [
+        {
+          text: 'Parent 1',
+          id: 1,
+          nodes: [
+            {
+              text: 'Child 1',
+              id: 2,
+              nodes: [
+                {
+                  text: 'Grandchild 1',
+                  id: 3,
+                },
+                {
+                  text: 'Grandchild 2',
+                  id: 4,
+                },
+              ]
+            },
+            {
+              text: 'Child 2',
+              id: 5,
+            }
+          ]
+        },
+        {
+          text: 'Parent 2',
+          id: 6,
+          nodes: [
+            {
+              text: 'Child 1',
+              id: 7,
+            },
+            {
+              text: 'Child 2',
+              id: 8,
+            }
+          ]
+        }
+      ]
+    }
   },
   onLoad: function (options) {
-    console.log(options.id)
+    this.setData({
+      title: options.id
+    })
     this.setData({
       title: options.name
     })
@@ -23,5 +70,8 @@ Page({
     wx.navigateBack({
       
     })
-  }
+  },
+  tapItem: function (e) {
+    console.log('index接收到的itemid: ' + e.detail.itemid);
+  },
 })

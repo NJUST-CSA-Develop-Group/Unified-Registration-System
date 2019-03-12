@@ -1,9 +1,13 @@
 <!--pages/registration/registration.wxml-->
 <view class="cu-bar {{navColor}}" style="padding-top:{{statusBarHeight}}px">
-
-      <view class='action margin'>
-        <text class='icon-back text-white' bindtap='back2list'></text> 
-        <text class='content text-limit-short'>{{title}}</text>
-      </view>
-
+  <view class='action margin'>
+    <text class='icon-back text-white' bindtap='back2list'></text> 
+    <text class='content text-limit-short'>{{title}}</text>
+   </view>
+</view>
+<view class='tree-group margin-top'>
+  <tree model='{{ treeData }}' bind:tapitem='tapItem'></tree>
+</view>
+<view class='tree-group margin-top'>
+  <tree model='{{ treeData }}' bind:tapitem='tapItem'></tree>
 </view>

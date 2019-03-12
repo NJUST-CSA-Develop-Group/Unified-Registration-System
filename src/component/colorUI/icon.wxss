@@ -21,11 +21,11 @@
     display: inline-block;
 }
 
-[class*="icon-"] {
+/* [class*="icon-"] {
     font-family: "iconfont" !important;
     font-size: inherit;
     font-style: normal;
-}
+} */
 
 
 @font-face {font-family: "iconfont";
@@ -66,7 +66,12 @@
 
 .icon-roundclose:before { content: "\e659"; }
 
-.icon-roundrightfill:before { content: "\e65a"; }
+.icon-roundrightfill:before { 
+  font-family: "iconfont" !important;
+  font-size: inherit;
+  font-style: normal;
+  content: "\e65a"; 
+}
 
 .icon-roundright:before { content: "\e65b"; }
 
@@ -78,7 +83,12 @@
 
 .icon-time:before { content: "\e65f"; }
 
-.icon-unfold:before { content: "\e661"; }
+.icon-unfold:before { 
+  font-family: "iconfont" !important;
+  font-size: inherit;
+  font-style: normal;
+  content: "\e661"; 
+}
 
 .icon-warnfill:before { content: "\e662"; }
 
@@ -118,7 +128,12 @@
 
 .icon-ticket:before { content: "\e677"; }
 
-.icon-back:before { content: "\e679"; }
+.icon-back:before { 
+  font-family: "iconfont" !important;
+  font-size: inherit;
+  font-style: normal;
+  content: "\e679"; 
+}
 
 .icon-cascades:before { content: "\e67c"; }
 

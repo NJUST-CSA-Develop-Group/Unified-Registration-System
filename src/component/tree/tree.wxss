@@ -1,0 +1,42 @@
+/* component/tree/tree.wxss */
+@import "../colorUI/icon.wxss";
+
+.cu-form-group {
+  /* background: #fff; */
+  padding: 1rpx 30rpx;
+  display: content;
+  align-items: center;
+  min-height: 100rpx;
+  justify-content: space-between;
+}
+.cu-form-group+.cu-form-group {
+  border-top: 1rpx solid #eee;
+}
+
+.cu-form-group .title {
+  text-align: justify;
+  padding-right: 30rpx;
+  font-size: 30rpx;
+  position: relative;
+  height: 60rpx;
+  line-height: 60rpx;
+}
+
+.cu-form-group.top {
+  align-items: baseline;
+}
+
+.cu-form-group input {
+  flex: 1;
+  font-size: 30rpx;
+  color: #555;
+  padding-right: 20rpx;
+  border-bottom: 1px solid;
+}
+
+.text-bold {
+  font-weight: bold;
+}
+
+
+

@@ -1,6 +1,6 @@
 <!--index.wxml-->
-<view class="cu-bar bg-white" style="padding-top:{{statusBarHeight}}px">
-    <view class='action title-style-3 margin'>
+<view class="cu-bar bg-white padding-top:{{statusBarHeight}}px" style="padding-top:{{statusBarHeight}}px">
+    <view class='action title-style-3 margin padding-top:{{statusBarHeight}}px'>
       <text class='text-xl text-bold'> 计算机学院报名平台</text>
       <text class='text-Abc text-gray self-end margin-left-sm'>URS</text>
     </view>
