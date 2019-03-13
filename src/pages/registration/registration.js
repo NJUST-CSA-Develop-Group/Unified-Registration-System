@@ -6,50 +6,59 @@ Page({
     navColor: "",
     statusBarHeight: app.globalData.statusBarHeight,
     id: "",
-    treeData: {
-      text: 'My Tree',
-      id: 0,
-      nodes: [
-        {
-          text: 'Parent 1',
-          id: 1,
-          nodes: [
-            {
-              text: 'Child 1',
-              id: 2,
-              nodes: [
-                {
-                  text: 'Grandchild 1',
-                  id: 3,
-                },
-                {
-                  text: 'Grandchild 2',
-                  id: 4,
-                },
-              ]
-            },
-            {
-              text: 'Child 2',
-              id: 5,
-            }
-          ]
-        },
-        {
-          text: 'Parent 2',
-          id: 6,
-          nodes: [
-            {
-              text: 'Child 1',
-              id: 7,
-            },
-            {
-              text: 'Child 2',
-              id: 8,
-            }
-          ]
-        }
-      ]
-    }
+    regsList: [
+      {
+        name: "队名",
+        type: "text",
+        defaultValue: "请输入队名",
+        description: "仅允许输入中文，不超过5个字",
+        tip: "请输入队名",
+        require: true,
+        range: [1, 5]
+      },
+      {
+        name: "组员一信息",
+        type: "group",
+        description: "组员一的个人信息",
+        tip: "请输入组员信息",
+        require: true,
+        subItem: [
+          {
+            name: "姓名",
+            type: "text",
+            description: "仅允许输入中文，不超过5个字",
+            tip: "请输入队名",
+            require: true,
+            range: [1, 5]
+          },
+          {
+            name: "性别",
+            type: "sex",
+            description: "请选择你的性别",
+            tip: "请输入性别",
+            require: true,
+            range: [1, 5]
+          },
+          {
+            name: "目标岗位",
+            type: "checkbox",
+            description: "请选择你需要应聘的岗位",
+            tip: "岗位",
+            require: false,
+            case: ["宣传部", "技术部", "美工部"],
+            range: [1, 2]
+          },
+          {
+            name: "任职设想",
+            type: "txtarea",
+            description: "描述你对职业的设想",
+            tip: "请在这里写下职业设想...",
+            require: false,
+            range: [1, 5]
+          }
+        ]
+      }
+    ]
   },
   onLoad: function (options) {
     this.setData({

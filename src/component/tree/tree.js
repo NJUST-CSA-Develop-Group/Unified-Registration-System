@@ -1,8 +1,6 @@
 // component/tree/tree.js
 Component({
 
-  externalClasses: ['icon-unfold'],
-
   properties: {
     model: Object,
   },
@@ -23,14 +21,14 @@ Component({
 
     tapItem: function (e) {
       var itemid = e.currentTarget.dataset.itemid;
-      console.log('组件里点击的id: ' + itemid);
+      // console.log('组件里点击的id: ' + itemid);
       this.triggerEvent('tapitem', { itemid: itemid }, { bubbles: true, composed: true });
     }
   },
 
   ready: function (e) {
     this.setData({
-      isBranch: Boolean(this.data.model.nodes && this.data.model.nodes.length),
+      isBranch: Boolean(this.data.model.subItem && this.data.model.subItem.length),
     });
     console.log(this.data);
   },

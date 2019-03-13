@@ -5,9 +5,8 @@
     <text class='content text-limit-short'>{{title}}</text>
    </view>
 </view>
-<view class='tree-group margin-top'>
-  <tree model='{{ treeData }}' bind:tapitem='tapItem'></tree>
-</view>
-<view class='tree-group margin-top'>
-  <tree model='{{ treeData }}' bind:tapitem='tapItem'></tree>
+<view class="cu-card case">
+  <view wx:for="{{regsList}}" wx:key class="cu-item shadow">
+    <tree model='{{ regsList[index] }}' bind:tapitem='tapItem'></tree>
+  </view>
 </view>

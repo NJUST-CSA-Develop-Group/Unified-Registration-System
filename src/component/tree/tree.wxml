@@ -8,8 +8,24 @@
         <view class='title text-bold' bindtap='toggle'>输入框</view>
         <input placeholder="三字标题" class='radius' name='input'></input>
     </view>
+    <block wx:if="{{questionList[questionNum].type==0}}">
+        <radio-group class="block margin-top" bindchange="checkboxChange">
+          <view class="cu-form-group" wx:for="{{questionList[questionNum].choseList}}" wx:key="{{index}}">
+            <view class='title'>{{questionList[questionNum].choseList[index].name}}</view>
+            <radio class='round blue' value="{{index}}"></radio>
+          </view>
+        </radio-group>
+      </block>
+      <block wx:else>
+        <checkbox-group class="margin-top" bindchange="checkboxChange">
+          <view class="cu-form-group" wx:for="{{questionList[questionNum].choseList}}" wx:key="{{index}}">
+            <view class='title'>{{questionList[questionNum].choseList[index].name}}</view>
+            <checkbox class='round blue' value="{{index}}"></checkbox>
+          </view>
+        </checkbox-group>
+      </block>
   </view>
   <view style='padding-left: 50rpx;' wx:if='{{ isBranch }}' hidden='{{ !open }}'>
-    <tree wx:for='{{ model.nodes }}' wx:key='id' model='{{ item }}'></tree>
+    <tree wx:for='{{ model.subItem }}' wx:key='id' model='{{ item }}'></tree>
   </view>
 </view>
