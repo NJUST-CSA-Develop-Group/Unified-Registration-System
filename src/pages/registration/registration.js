@@ -12,7 +12,7 @@ Page({
         type: "text",
         defaultValue: "请输入队名",
         description: "仅允许输入中文，不超过5个字",
-        tip: "请输入队名",
+        tip: "仅支持中文，不超过5个字",
         require: true,
         range: [1, 5]
       },
@@ -26,23 +26,31 @@ Page({
           {
             name: "姓名",
             type: "text",
-            description: "仅允许输入中文，不超过5个字",
-            tip: "请输入队名",
+            description: "仅支持中文，不超过5个字",
+            tip: "仅支持中文，不超过5个字",
             require: true,
             range: [1, 5]
           },
           {
             name: "性别",
             type: "sex",
+            defaultValue: "男",
             description: "请选择你的性别",
             tip: "请输入性别",
             require: true,
-            range: [1, 5]
+          },
+          {
+            name: "出生日期",
+            type: "date",
+            defaultValue: "1999-01-01",
+            description: "请选择你的出生年月",
+            tip: "请选择你的出生年月",
+            require: true,
           },
           {
             name: "目标岗位",
             type: "checkbox",
-            description: "请选择你需要应聘的岗位",
+            description: "*请至少选择一组，最多2组",
             tip: "岗位",
             require: false,
             case: ["宣传部", "技术部", "美工部"],
