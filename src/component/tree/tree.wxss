@@ -48,6 +48,7 @@
   color: #555;
   padding-right: 20rpx;
   border-bottom: 1px solid;
+  border-color: #bbb;
 }
 
 .text-bold {

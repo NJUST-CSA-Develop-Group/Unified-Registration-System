@@ -15,7 +15,7 @@
         <view class="text-white margin-xs margin-top text-limit-long">
           发布者：{{activityList[index].publisher}}
         </view>
-        <view class="cu-capsule round margin-top">
+        <view class="cu-capsule round margin-top" wx:if='{{activityList[index].endTime!=null}}'>
           <view class='cu-tag bg-yellow shadow text-white text-bold'>
             结束时间
           </view>
