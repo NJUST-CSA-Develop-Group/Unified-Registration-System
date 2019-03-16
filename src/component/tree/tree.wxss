@@ -13,6 +13,10 @@
   border-color: #aaa;
 }
 
+.center {
+    padding: 10rpx 0 30rpx 0;
+}
+
 .text-gray, .line-gray, .lines-gray {
   color: #aaa;
 }

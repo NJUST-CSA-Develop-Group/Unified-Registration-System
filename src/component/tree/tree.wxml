@@ -4,80 +4,45 @@
     <block wx:if="{{model.type=='group'}}">
       <view class="cu-form-group" style='padding-bottom: 15rpx;'>
           <view class='title text-bold' style='margin: 20rpx;font-size: 35rpx'>{{model.name}}{{ model.require ? '(必填)' : ''}}</view>
-          <view class='text-gray' bindtap='toggle' style='margin: 20rpx'>{{ open ? '收起' : '展开' }}</view>
+          <view class='text-gray' bindtap='_toggle' style='margin: 20rpx'>{{ open ? '收起' : '展开' }}</view>
       </view>
     </block>
-    <block wx:if="{{model.type=='text'}}">
+    <block wx:if="{{model.type=='text'||model.type=='email'}}">
       <view class="cu-form-group" style='padding-bottom: 15rpx;'>
           <view class='title text-bold' style='margin: 20rpx;font-size: 35rpx'>{{model.name}}{{ model.require ? '(必填)' : ''}}</view>
-          <input placeholder="{{model.tip}}" style='margin: 20rpx;font-size: 35rpx' class='radius' name='text' bindinput="inputText"></input>
-      </view>
-    </block>
-    <block wx:if="{{model.type=='email'}}">
-      <view class="cu-form-group" style='padding-bottom: 15rpx;'>
-          <view class='title text-bold' style='margin: 20rpx;font-size: 35rpx'>{{model.name}}{{ model.require ? '(必填)' : ''}}</view>
-          <input placeholder="{{model.tip}}" style='margin: 20rpx;font-size: 35rpx' class='radius' name='text' bindinput="inputEmail">
-          </input>
+          <input placeholder="{{model.tip}}" style='margin: 20rpx;font-size: 35rpx' class='radius' name='text' bindinput="_inputChange" bindblur="_inputCheck"></input>
       </view>
     </block>
     <block wx:if="{{model.type=='txtarea'}}">
       <view class="cu-form-group" style='padding-bottom: 15rpx;'>
           <view class='title text-bold' style='margin: 20rpx;font-size: 35rpx'>{{model.name}}{{ model.require ? '(必填)' : ''}}</view>
-          <textarea placeholder="{{model.tip}}" style='margin: 20rpx;font-size: 35rpx' class='radius txt-border' name='textarea' bindinput="inputTextArea">
+          <textarea placeholder="{{model.tip}}" style='margin: 20rpx;font-size: 35rpx' class='radius txt-border' name='textarea' bindinput="_inputChange">
           </textarea>
       </view>
     </block>
-    <block wx:if="{{model.type=='number|studentNumber'}}">
+    <block wx:if="{{model.type=='number'||model.type=='studentNumber'||model.type=='phone'||model.type=='qq'||model.type=='idcard'||model.type=='GPA'}}">
       <view class="cu-form-group" style='padding-bottom: 15rpx;'>
           <view class='title text-bold' style='margin: 20rpx;font-size: 35rpx'>{{model.name}}{{ model.require ? '(必填)' : ''}}</view>
-          <input placeholder="{{model.tip}}" style='margin: 20rpx;font-size: 35rpx' class='radius' name="number" type="number" bindinput="inputNumber">
+          <input placeholder="{{model.tip}}" style='margin: 20rpx;font-size: 35rpx' class='radius' name="number" type="number" bindinput="_inputChange" bindblur="_inputCheck">
           </input>
       </view>
     </block>  
-    <block wx:if="{{model.type=='phone'}}">
-      <view class="cu-form-group" style='padding-bottom: 15rpx;'>
-          <view class='title text-bold' style='margin: 20rpx;font-size: 35rpx'>{{model.name}}{{ model.require ? '(必填)' : ''}}</view>
-          <input placeholder="{{model.tip}}" style='margin: 20rpx;font-size: 35rpx' class='radius' name="phone" type="number" maxlength="11" bindinput="inputPhoneNum">
-          </input>
-      </view>
-    </block>
-    <block wx:if="{{model.type=='qq'}}">
-      <view class="cu-form-group" style='padding-bottom: 15rpx;'>
-          <view class='title text-bold' style='margin: 20rpx;font-size: 35rpx'>{{model.name}}{{ model.require ? '(必填)' : ''}}</view>
-          <input placeholder="{{model.tip}}" style='margin: 20rpx;font-size: 35rpx' class='radius' name="qq" type="number" bindinput="inputQQNum">
-          </input>
-      </view>
-    </block>
-    <block wx:if="{{model.type=='idcard'}}">
-      <view class="cu-form-group" style='padding-bottom: 15rpx;'>
-          <view class='title text-bold' style='margin: 20rpx;font-size: 35rpx'>{{model.name}}{{ model.require ? '(必填)' : ''}}</view>
-          <input placeholder="{{model.tip}}" style='margin: 20rpx;font-size: 35rpx' class='radius' name="idcard" type="number" bindinput="inputIDCard">
-          </input>
-      </view>
-    </block>
-    <block wx:if="{{model.type=='GPA'}}">
-      <view class="cu-form-group" style='padding-bottom: 15rpx;'>
-          <view class='title text-bold' style='margin: 20rpx;font-size: 35rpx'>{{model.name}}{{ model.require ? '(必填)' : ''}}</view>
-          <input placeholder="{{model.tip}}" style='margin: 20rpx;font-size: 35rpx' class='radius' name="GPA" type="number" bindinput="inputGPA">
-          </input>
-      </view>
-    </block>
     <block wx:if="{{model.type=='radio'}}">
       <view class="cu-form-group" style='padding-bottom: 15rpx;'>
         <view class='title text-bold' style='margin: 20rpx;font-size: 35rpx'>{{model.name}}{{ model.require ? '(必填)' : ''}}</view>
-        <radio-group class="block margin-top" bindchange="checkboxChange" style='padding-left: 10rpx;'>
-          <view class="cu-form-group layout_horizontal" wx:for="{{model.case}}" wx:key="{{index}}">
-            <view class='title'>{{model.case[index]}}</view>
-            <radio class='round blue' value="{{index}}"></radio>
+        <picker value="{{index}}" range='{{model.case}}' bindchange="_pickerChange">
+          <view class="picker" style='text-align:center;'>
+            <text style='float:left;' style='margin: 20rpx;font-size: 20rpx'>当前选择: {{model.case[index]}}</text>
+            <text class='icon-roundrightfill' style='float:right;font-size: 20rpx'></text>
           </view>
-        </radio-group>
+        </picker>
       </view>
     </block>
     <block wx:if="{{model.type=='checkbox'}}">
       <view class="cu-form-group" style='padding-bottom: 15rpx;'>
         <view class='title text-bold' style='margin: 20rpx;font-size: 35rpx'>{{model.name}}{{ model.require ? '(必填)' : ''}}</view>
         <view class='text-gray'>{{model.description}}</view>
-        <checkbox-group class="margin-top" bindchange="checkboxChange" style='padding-left: 10rpx;'>
+        <checkbox-group class="margin-top" bindchange="_checkboxChange" style='padding-left: 10rpx;'>
           <view class="cu-form-group layout_horizontal" wx:for="{{model.case}}" wx:key="{{index}}">
             <view class='title'>{{model.case[index]}}</view>
             <checkbox class='round blue' value="{{index}}"></checkbox>
@@ -88,7 +53,7 @@
     <block wx:if="{{model.type=='date'}}">
       <view class="cu-form-group" style='padding-bottom: 15rpx;'>
           <view class='title text-bold' style='margin: 20rpx;font-size: 35rpx'>{{model.name}}{{ model.require ? '(必填)' : ''}}</view>
-          <picker mode="date" value="{{date}}" start="1990-01-01" end="2050-01-01" bindchange="bindDateChange">
+          <picker mode="date" value="{{date}}" start="1990-01-01" end="2050-01-01" bindchange="_pickerChange">
             <view class="picker" style='text-align:center;'>
               <text style='float:left;' style='margin: 20rpx;font-size: 20rpx'>当前选择: {{date}}</text>
               <text class='icon-roundrightfill' style='float:right;font-size: 20rpx'></text>
@@ -99,7 +64,7 @@
     <block wx:if="{{model.type=='sex'}}">
       <view class="cu-form-group" style='padding-bottom: 15rpx;'>
           <view class='title text-bold' style='margin: 20rpx;font-size: 35rpx'>{{model.name}}{{ model.require ? '(必填)' : ''}}</view>
-          <picker value="{{index}}" range='{{sex}}' bindchange="bindDateChange">
+          <picker value="{{nation[index]}}" range='{{sex}}' bindchange="_pickerChange">
             <view class="picker" style='text-align:center;'>
               <text style='float:left;' style='margin: 20rpx;font-size: 20rpx'>当前选择: {{sex[index]}}</text>
               <text class='icon-roundrightfill' style='float:right;font-size: 20rpx'></text>
@@ -110,16 +75,16 @@
     <block wx:if="{{model.type=='nation'}}">
       <view class="cu-form-group" style='padding-bottom: 15rpx;'>
           <view class='title text-bold' style='margin: 20rpx;font-size: 35rpx'>{{model.name}}{{ model.require ? '(必填)' : ''}}</view>
-          <picker value="{{index}}" range='{{nation}}' bindchange="bindDateChange">
-            <view class="picker" style='text-align:center;'>
-              <text style='float:left;' style='margin: 20rpx;font-size: 20rpx'>当前选择: {{nation[index]}}</text>
-              <text class='icon-roundrightfill' style='float:right;font-size: 20rpx'></text>
+          <picker value="{{nation[index]}}" range='{{nation}}' bindchange="_pickerChange">
+            <view class="pickerr" style='margin-left: 20rpx'>
+              <text class='center' style='float:left;font-size:30rpx;'>当前选择: {{nation[index]}}</text>
+              <text class='icon-roundrightfill' style='float:right;font-size: 20rpx;padding:20rpx'></text>
             </view>
           </picker>
       </view>
     </block>
   </view>
   <view style='padding-left: 50rpx;' wx:if='{{ isBranch }}' hidden='{{ !open }}'>
-    <tree wx:for='{{ model.subItem }}' wx:key='id' model='{{ item }}'></tree>
+    <tree wx:for='{{ model.subItem }}' wx:key='id' model='{{ item }}' bind:sent="_onSent" bind:check="_oncheck"></tree>
   </view>
 </view>

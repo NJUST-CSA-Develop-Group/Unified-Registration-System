@@ -7,7 +7,9 @@ Page({
     navColor: "",
     statusBarHeight: app.globalData.statusBarHeight,
     id: "",
-    regsList: []
+    regsList: [],
+    paramC2P: [],
+    check: true
   },
   onLoad: function (options) {
     this.getRegistration(options.id)
@@ -51,4 +53,21 @@ Page({
   tapItem: function (e) {
     console.log('index接收到的itemid: ' + e.detail.itemid);
   },
+  onSent: function (e) {
+    this.data.paramC2P[e.detail.paramC2P.name] = e.detail.paramC2P.value
+    this.setData({
+      paramC2P: this.data.paramC2P
+    })
+    console.log(this.data.paramC2P)
+  },
+  onCheck: function (e) {
+    this.setData({
+      check: e.detail.check
+    })
+    this.triggerEvent('check', {
+      check: this.data.check
+    }
+    );
+    console.log(this.data.check)
+  }
 })
