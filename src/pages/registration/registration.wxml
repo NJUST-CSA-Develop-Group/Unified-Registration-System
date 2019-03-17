@@ -1,9 +1,11 @@
 <!--pages/registration/registration.wxml-->
-<view class="cu-bar {{navColor}}" style="padding-top:{{statusBarHeight}}px">
-  <view class='action margin'>
-    <text class='icon-back text-white' bindtap='back2list'></text> 
-    <text class='content text-limit-short'>{{title}}</text>
-   </view>
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+  <view class="cu-bar fixed bg-gradual-blue" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+    <navigator class='action' open-type="navigateBack" delta="1" hover-class="none">
+      <text class='icon-back'></text> 
+      <text class='text-limit-short margin-left'>{{title}}</text>
+    </navigator>
+  </view>
 </view>
 <view class="cu-card case">
   <view wx:for="{{regsList}}" wx:key class="cu-item shadow">

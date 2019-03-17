@@ -3,6 +3,9 @@ import regeneratorRuntime from '../../regenerator-runtime/runtime.js';
 const app = getApp()
 Page({
   data: {
+    StatusBar: app.globalData.StatusBar,
+    CustomBar: app.globalData.CustomBar,
+    ColorList: app.globalData.ColorList,
     title: "返回",
     navColor: "",
     statusBarHeight: app.globalData.statusBarHeight,
