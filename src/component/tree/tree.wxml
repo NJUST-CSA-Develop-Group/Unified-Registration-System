@@ -31,9 +31,10 @@
       <view class="cu-form-group" style='padding-bottom: 15rpx;'>
         <view class='title text-bold' style='margin: 20rpx;font-size: 35rpx'>{{model.name}}{{ model.require ? '(必填)' : ''}}</view>
         <picker value="{{index}}" range='{{model.case}}' bindchange="_pickerChange">
-          <view class="picker" style='text-align:center;'>
-            <text style='float:left;' style='margin: 20rpx;font-size: 20rpx'>当前选择: {{model.case[index]}}</text>
-            <text class='icon-roundrightfill' style='float:right;font-size: 20rpx'></text>
+          <view class="picker" style='margin-left: 20rpx'>
+            <text class='center' style='float:left;font-size:30rpx;' wx:if='{{pickerSelected}}'>当前选择: {{boxValue}}</text>
+            <text class='center' style='float:left;font-size:30rpx;' wx:else>点击以选择</text>
+            <text class='icon-roundrightfill' style='float:right;font-size: 30rpx;padding:10rpx'></text>
           </view>
         </picker>
       </view>
@@ -53,10 +54,11 @@
     <block wx:if="{{model.type=='date'}}">
       <view class="cu-form-group" style='padding-bottom: 15rpx;'>
           <view class='title text-bold' style='margin: 20rpx;font-size: 35rpx'>{{model.name}}{{ model.require ? '(必填)' : ''}}</view>
-          <picker mode="date" value="{{date}}" start="1990-01-01" end="2050-01-01" bindchange="_pickerChange">
-            <view class="picker" style='text-align:center;'>
-              <text style='float:left;' style='margin: 20rpx;font-size: 20rpx'>当前选择: {{date}}</text>
-              <text class='icon-roundrightfill' style='float:right;font-size: 20rpx'></text>
+          <picker mode="date" value="index" start="1990-01-01" end="2050-01-01" bindchange="_pickerChange">
+            <view class="picker" style='margin-left: 20rpx'>
+              <text class='center' style='float:left;font-size:30rpx;' wx:if='{{pickerSelected}}'>当前选择: {{boxValue}}</text>
+              <text class='center' style='float:left;font-size:30rpx;' wx:else>点击以选择</text>
+              <text class='icon-roundrightfill' style='float:right;font-size: 30rpx;padding:10rpx'></text>
             </view>
           </picker>
       </view>
@@ -64,10 +66,11 @@
     <block wx:if="{{model.type=='sex'}}">
       <view class="cu-form-group" style='padding-bottom: 15rpx;'>
           <view class='title text-bold' style='margin: 20rpx;font-size: 35rpx'>{{model.name}}{{ model.require ? '(必填)' : ''}}</view>
-          <picker value="{{nation[index]}}" range='{{sex}}' bindchange="_pickerChange">
-            <view class="picker" style='text-align:center;'>
-              <text style='float:left;' style='margin: 20rpx;font-size: 20rpx'>当前选择: {{sex[index]}}</text>
-              <text class='icon-roundrightfill' style='float:right;font-size: 20rpx'></text>
+          <picker value="index" range='{{sex}}' bindchange="_pickerChange">
+            <view class="picker" style='margin-left: 20rpx'>
+              <text class='center' style='float:left;font-size:30rpx;' wx:if='{{pickerSelected}}'>当前选择: {{boxValue}}</text>
+              <text class='center' style='float:left;font-size:30rpx;' wx:else>点击以选择</text>
+              <text class='icon-roundrightfill' style='float:right;font-size: 30rpx;padding:10rpx'></text>
             </view>
           </picker>
       </view>
@@ -75,10 +78,11 @@
     <block wx:if="{{model.type=='nation'}}">
       <view class="cu-form-group" style='padding-bottom: 15rpx;'>
           <view class='title text-bold' style='margin: 20rpx;font-size: 35rpx'>{{model.name}}{{ model.require ? '(必填)' : ''}}</view>
-          <picker value="{{nation[index]}}" range='{{nation}}' bindchange="_pickerChange">
-            <view class="pickerr" style='margin-left: 20rpx'>
-              <text class='center' style='float:left;font-size:30rpx;'>当前选择: {{nation[index]}}</text>
-              <text class='icon-roundrightfill' style='float:right;font-size: 20rpx;padding:20rpx'></text>
+          <picker value="index" range='{{nation}}' bindchange="_pickerChange">
+            <view class="picker" style='margin-left: 20rpx'>
+              <text class='center' style='float:left;font-size:30rpx;' wx:if='{{pickerSelected}}'>当前选择: {{boxValue}}</text>
+              <text class='center' style='float:left;font-size:30rpx;' wx:else>点击以选择</text>
+              <text class='icon-roundrightfill' style='float:right;font-size: 30rpx;padding:10rpx'></text>
             </view>
           </picker>
       </view>

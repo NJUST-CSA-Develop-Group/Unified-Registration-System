@@ -12,9 +12,10 @@ Component({
     open: false,
     isBranch: false,
     index: 0,
-    paramC2P: [],
+    paramC2P: {},
     check: true,
-    checkBoxList: [],
+    boxValue: '',
+    pickerSelected: false,
     sex: ["男", "女"],
     nation: ["汉族", "蒙古族", "回族", "藏族", "维吾尔族", "苗族", "彝族", "壮族", "布依族", "朝鲜族", "满族", 
     "侗族", "瑶族", "白族", "土家族", "哈尼族", "哈萨克族", "傣族", "黎族", "傈僳族", "佤族", "畲族",
@@ -36,6 +37,70 @@ Component({
       var itemid = e.currentTarget.dataset.itemid;
       // console.log('组件里点击的id: ' + itemid);
       this.triggerEvent('tapitem', { itemid: itemid }, { bubbles: true, composed: true });
+    },
+    _pickerChange: function (e) {
+      this.setData({
+        pickerSelected: true
+      })
+      switch (this.properties.model.type) {
+        case 'sex':
+          this.data.boxValue = this.data.sex[e.detail.value]; break;
+        case 'nation':
+          this.data.boxValue = this.data.nation[e.detail.value]; break;
+        case 'radio':
+          this.data.boxValue = this.properties.model.case[e.detail.value]; break;
+        case 'date':
+          this.data.boxValue = e.detail.value
+      }
+      this.setData({
+        boxValue: this.data.boxValue
+      })
+      this.triggerEvent(
+        'sent',
+        {
+          paramC2P: {
+            name: this.properties.model.name,
+            value: this.data.boxValue
+          }
+        }
+      );
+    },
+    _checkboxChange: function (e) {
+      let str = ''
+      for (var i = 0; i < e.detail.value.length; i++) {
+        str = str + this.properties.model.case[e.detail.value[i]]
+        if (i < e.detail.value.length - 1) {
+          str = str + ','
+        }
+      }
+      if (this.properties.model.range) {
+        if (e.detail.value.length >= this.properties.model.range[0] && e.detail.value.length <= this.properties.model.range[1]) {
+          this.triggerEvent(
+            'sent',
+            {
+              paramC2P: {
+                name: this.properties.model.name,
+                value: str
+              }
+            }
+          );
+        } else {
+          wx.showToast({
+            title: '选择至少' + this.properties.model.range[0] + "项，至多" + this.properties.model.range[1] + "项！",
+            icon: 'none'
+          })
+        }
+      } else {
+        this.triggerEvent(
+          'sent',
+          {
+            paramC2P: {
+              name: this.properties.model.name,
+              value: str
+            }
+          }
+        );
+      }   
     },
     _inputChange: function (e) {
       this.triggerEvent(
@@ -78,7 +143,6 @@ Component({
             check: true
           })
         }
-        console.log(this.data.check+'是的')
         this.triggerEvent(
           'check', {
             check: this.data.check
@@ -88,6 +152,9 @@ Component({
     },
     _onSent: function (e) {
       this.data.paramC2P[e.detail.paramC2P.name] = e.detail.paramC2P.value
+      if (e.detail.paramC2P.value != Object && e.detail.paramC2P.value == '') {
+        delete this.data.paramC2P.e.detail.paramC2P.name
+      }
       this.setData({
         paramC2P: this.data.paramC2P
       })
@@ -115,6 +182,17 @@ Component({
     this.setData({
       isBranch: Boolean(this.data.model.subItem && this.data.model.subItem.length)
     });
+    switch (this.properties.model.type) {
+      case 'sex':
+        this.data.boxValue = this.data.sex[0]; break;
+      case 'nation':
+        this.data.boxValue = this.data.nation[0]; break;
+      case 'radio':
+        this.data.boxValue = this.properties.model.case[0]; break;
+    }
+    this.setData({
+      boxValue: this.data.boxValue
+    })
   },  
 
 })
