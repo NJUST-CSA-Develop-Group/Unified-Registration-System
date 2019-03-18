@@ -13,7 +13,8 @@ Page({
     regsList: [],
     paramC2P: {},
     check: true,
-    submit: true
+    submit: true,
+    loader: true
   },
   onLoad: function (options) {
     this.getRegistration(options.id)
@@ -46,8 +47,18 @@ Page({
       this.setData({
         regsList: res
       })
-      console.log(this.data.regsList)
+      this.setData({
+        loader: false
+      })
+      // console.log(this.data.regsList)
     } else {
+      this.setData({
+        loader: false
+      })
+      wx.showToast({
+        title: '网络异常，请重新打开！',
+        icon: 'none'
+      })
       console.log("没有成功")
       // 未获取成功
     }
@@ -57,28 +68,37 @@ Page({
     this.setData({
       submit: false
     })
-    let res = await new Promise((resolve, reject) => {
-      wx.request({
-        url: 'https://www.turing-cup.online/voteapp/activity/' + id,
-        method: 'POST',
-        data: this.data.paramC2P,
-        success: ({ data }) => {
-          resolve(data)
-        },
-        fail: reject
+    if (this.data.check) {
+      let res = await new Promise((resolve, reject) => {
+        wx.request({
+          url: 'https://www.turing-cup.online/voteapp/activity/' + id,
+          method: 'POST',
+          data: this.data.paramC2P,
+          success: ({ data }) => {
+            resolve(data)
+          },
+          fail: reject
+        })
       })
-    })
-    if (res.success) {
-      wx.showToast({
-        title: '提交成功！',
-      })
-      setTimeout(function () {
-        that.back2list()
-      }, 1000)
-      
+      if (res.success) {
+        wx.showToast({
+          title: '提交成功！',
+        })
+        setTimeout(function () {
+          that.back2list()
+        }, 1000)  
+      } else {
+        wx.showToast({
+          title: '请检查必填项或网络异常！',
+          icon: 'none'
+        })
+        this.setData({
+          submit: true
+        })
+      }
     } else {
       wx.showToast({
-        title: '请检查必填项或网络异常！',
+        title: '部分项格式不正确！',
         icon: 'none'
       })
       this.setData({
@@ -95,7 +115,8 @@ Page({
   },
   onSent: function (e) {
     this.data.paramC2P[e.detail.paramC2P.name] = e.detail.paramC2P.value
-    if (e.detail.paramC2P.value != Object && e.detail.paramC2P.value == '') {
+    // console.log(Object.keys(e.detail.paramC2P.value).length)
+    if (Object.keys(e.detail.paramC2P.value).length==0) {
       delete this.data.paramC2P[e.detail.paramC2P.name]
     }
     this.setData({

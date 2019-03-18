@@ -13,7 +13,7 @@
           <input placeholder="{{model.tip}}" style='margin: 20rpx;font-size: 35rpx' class='radius' name='text' bindinput="_inputChange" bindblur="_inputCheck"></input>
       </view>
     </block>
-    <block wx:if="{{model.type=='txtarea'}}">
+    <block wx:if="{{model.type=='textarea'}}">
       <view class="cu-form-group" style='padding-bottom: 15rpx;'>
           <view class='title text-bold' style='margin: 20rpx;font-size: 35rpx'>{{model.name}}{{ model.require ? '(必填)' : ''}}</view>
           <textarea placeholder="{{model.tip}}" style='margin: 20rpx;font-size: 35rpx' class='radius txt-border' name='textarea' bindinput="_inputChange">

@@ -1,6 +1,6 @@
 <!--pages/registration/registration.wxml-->
 <view class="cu-custom" style="height:{{CustomBar}}px;">
-  <view class="cu-bar fixed bg-gradual-blue" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+  <view class="cu-bar fixed {{navColor}}" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
     <navigator class='action' open-type="navigateBack" delta="1" hover-class="none">
       <text class='icon-back'></text> 
       <text class='text-limit-short margin-left'>{{title}}</text>
@@ -12,10 +12,21 @@
     <tree model='{{ regsList[index] }}' bind:tapitem='tapItem' bind:sent='onSent' bind:check='onCheck'></tree>
   </view>
 </view>
-<view class="padding flex flex-direction" wx:if='{{submit}}'>
-  <button class='cu-btn bg-blue margin-tb-sm lg' bindtap='regSubmit'>提交</button>
-</view>
-<view class="padding-xl" wx:else>
-  <button class='cu-btn block bg-blue margin-tb-sm lg'>
-    <text class='icon-loading2 iconfont-spin'></text> 加载</button>
+<block wx:if='{{!loader}}'>
+  <view class="padding flex flex-direction" wx:if='{{submit}}'>
+    <button class='cu-btn bg-blue margin-tb-sm lg' bindtap='regSubmit'>提交</button>
+  </view>
+  <view class="padding" wx:else>
+    <button class='cu-btn block bg-blue margin-tb-sm lg'>
+      <text class='icon-loading2 iconfont-spin'></text> 加载</button>
+  </view>
+</block>
+<view class='loader' wx:if='{{loader}}'>
+  <view class='line-scale'>
+    <view></view>
+    <view></view>
+    <view></view>
+    <view></view>
+    <view></view>
+  </view>
 </view>

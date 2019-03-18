@@ -1,4 +1,22 @@
 /**app.wxss**/
+@import "component/loader/loaders.min.wxss";
+
+.loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex: 0 1 auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.line-scale>view {
+  background-color: rgb(82, 78, 78);
+}
 .container {
   height: 100%;
   display: flex;

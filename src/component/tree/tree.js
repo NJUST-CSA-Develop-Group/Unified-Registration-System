@@ -152,8 +152,8 @@ Component({
     },
     _onSent: function (e) {
       this.data.paramC2P[e.detail.paramC2P.name] = e.detail.paramC2P.value
-      if (e.detail.paramC2P.value != Object && e.detail.paramC2P.value == '') {
-        delete this.data.paramC2P.e.detail.paramC2P.name
+      if (Object.keys(e.detail.paramC2P.value).length == 0) {
+        delete this.data.paramC2P[e.detail.paramC2P.name]
       }
       this.setData({
         paramC2P: this.data.paramC2P

@@ -6,9 +6,16 @@ const app = getApp()
 
 Page({
   data: {
-    colorList: ["bg-gradual-green", "bg-gradual-blue", "bg-gradual-red", "bg-gradual-purple", "bg-gradual-orange", "bg-gradual-pink"],
+    colorList: {
+      "院科协": "bg-gradual-green", 
+      "院学生会": "bg-gradual-blue", 
+      "院红会": "bg-gradual-red", 
+      "院团委": "bg-gradual-purple", 
+      "院新媒体": "bg-gradual-orange", 
+      "院青协": "bg-gradual-pink"},
     activityList: [],
-    statusBarHeight: app.globalData.statusBarHeight
+    statusBarHeight: app.globalData.statusBarHeight,
+    loader: true
   },
   onLoad(){
     this.getActivity();
@@ -16,7 +23,7 @@ Page({
   entryCard(e){
     var activityID = this.data.activityList[e.currentTarget.id].id
     var activityName = this.data.activityList[e.currentTarget.id].name
-    var color = this.data.colorList[e.currentTarget.id]
+    var color = this.data.colorList[this.data.activityList[e.currentTarget.id].publisher]
     wx.navigateTo({
       url: '../registration/registration?id=' + activityID + '&name=' + activityName + '&color=' + color,
     })
@@ -36,7 +43,18 @@ Page({
       this.setData({
         activityList: res
       })
+      this.setData({
+        loader: false
+      })
+      console.log(res)
     } else {
+      this.setData({
+        loader: false
+      })
+      wx.showToast({
+        title: '网络异常，请刷新！',
+        icon: 'none'
+      })
       console.log("没有成功")
     }
   },
