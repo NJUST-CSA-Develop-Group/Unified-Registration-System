@@ -129,7 +129,7 @@ Component({
         default:
           str = '';
       }
-      if (str!=''){
+      if (str != '' && e.detail.value != ''){
         if (!str.test(e.detail.value)) {
           wx.showToast({
             title: '输入格式不正确！',

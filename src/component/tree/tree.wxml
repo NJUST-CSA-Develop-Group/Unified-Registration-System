@@ -7,7 +7,7 @@
           <view class='text-gray' bindtap='_toggle' style='margin: 20rpx'>{{ open ? '收起' : '展开' }}</view>
       </view>
     </block>
-    <block wx:if="{{model.type=='text'||model.type=='email'}}">
+    <block wx:if="{{model.type=='text'||model.type=='studentNumber'||model.type=='email'}}">
       <view class="cu-form-group" style='padding-bottom: 15rpx;'>
           <view class='title text-bold' style='margin: 20rpx;font-size: 35rpx'>{{model.name}}{{ model.require ? '(必填)' : ''}}</view>
           <input placeholder="{{model.tip}}" style='margin: 20rpx;font-size: 35rpx' class='radius' name='text' bindinput="_inputChange" bindblur="_inputCheck"></input>
@@ -20,7 +20,7 @@
           </textarea>
       </view>
     </block>
-    <block wx:if="{{model.type=='number'||model.type=='studentNumber'||model.type=='phone'||model.type=='qq'||model.type=='idcard'||model.type=='GPA'}}">
+    <block wx:if="{{model.type=='number'||model.type=='phone'||model.type=='qq'||model.type=='idcard'||model.type=='GPA'}}">
       <view class="cu-form-group" style='padding-bottom: 15rpx;'>
           <view class='title text-bold' style='margin: 20rpx;font-size: 35rpx'>{{model.name}}{{ model.require ? '(必填)' : ''}}</view>
           <input placeholder="{{model.tip}}" style='margin: 20rpx;font-size: 35rpx' class='radius' name="number" type="number" bindinput="_inputChange" bindblur="_inputCheck">
@@ -89,6 +89,6 @@
     </block>
   </view>
   <view style='padding-left: 50rpx;' wx:if='{{ isBranch }}' hidden='{{ !open }}'>
-    <tree wx:for='{{ model.subItem }}' wx:key='id' model='{{ item }}' bind:sent="_onSent" bind:check="_oncheck"></tree>
+    <tree wx:for='{{ model.subItem }}' wx:key='id' model='{{ item }}' bind:sent="_onSent" bind:check="_onCheck"></tree>
   </view>
 </view>
