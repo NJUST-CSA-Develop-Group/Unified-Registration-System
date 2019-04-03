@@ -12,7 +12,8 @@ Page({
       "院红会": "bg-gradual-red", 
       "院团委": "bg-gradual-purple", 
       "院新媒体": "bg-gradual-orange", 
-      "院青协": "bg-gradual-pink"},
+      "院青协": "bg-gradual-pink",
+      "网安协会(社团)": "bg-gradual-brown"},
     activityList: [],
     statusBarHeight: app.globalData.statusBarHeight,
     loader: true

@@ -45,3 +45,8 @@
   height: 45px;
   width: 100%;
 }
+
+.bg-gradual-brown {
+  background-image: linear-gradient(45deg, #7c6f64, #3c3836);
+  color: #fff;
+}

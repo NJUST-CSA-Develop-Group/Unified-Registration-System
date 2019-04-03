@@ -10,5 +10,6 @@ App({
   },
   globalData: {
     statusBarHeight: wx.getSystemInfoSync()['statusBarHeight']
+    // cloudURL: 'http://47.102.219.51:8080/voteapp'
   }
 })
