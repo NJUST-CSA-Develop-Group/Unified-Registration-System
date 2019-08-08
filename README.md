@@ -2,6 +2,11 @@
 
 本项目是为第二届“展风华·为人先”项目开发的报名系统，远期规划将可通用于大部分院学生组织活动的报名信息收集工作。此仓库存放一般用户使用的小程序端的代码。
 
+## 项目其他部分代码仓库
+
+- [服务端](https://github.com/NJUST-CSA-Develop-Group/URS-Server)
+- [管理端](https://github.com/NJUST-CSA-Develop-Group/URS-admin)
+
 ## LICENSE
 
 本项目采用MIT协议，详见[LICENSE](LICENSE)
