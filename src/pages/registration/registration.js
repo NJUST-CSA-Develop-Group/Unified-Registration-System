@@ -17,7 +17,47 @@ Page({
     loader: true
   },
   onLoad: function (options) {
-    this.getRegistration(options.id)
+    // this.getRegistration(options.id)
+    this.setData({
+      loader: false
+    })
+    this.setData({
+      regsList: [
+        {
+          name: "性别",
+          type: 'sex',
+          // defaultValue?: string,
+          description: '请填写真实姓名',
+          tip: '哈哈哈哈哈哈',
+          require: true,
+          // case?: string[],
+          // range?: number[],
+          // subItem?: object[]
+        },
+        {
+          name: "姓名",
+          type: 'text',
+          // defaultValue?: string,
+          description: '请填写真实姓名',
+          tip: '哈哈哈哈哈哈',
+          require: true,
+          // case?: string[],
+          // range?: number[],
+          // subItem?: object[]
+        },
+        {
+          name: "姓名",
+          type: 'text',
+          // defaultValue?: string,
+          description: '请填写真实姓名',
+          tip: '哈哈哈哈哈哈',
+          require: true,
+          // case?: string[],
+          // range?: number[],
+          // subItem?: object[]
+        }
+      ]
+    })
     this.setData({
       id: options.id
     })
@@ -40,7 +80,14 @@ Page({
         success: ({ data }) => {
           resolve(data)
         },
-        fail: reject
+        fail() {
+          reject
+          wx.showToast({
+            title: '网络异常，请刷新！',
+            icon: 'none',
+            duration: 2500
+          })
+        }
       })
     })
     if (res) {
@@ -50,18 +97,8 @@ Page({
       this.setData({
         loader: false
       })
-      // console.log(this.data.regsList)
-    } else {
-      this.setData({
-        loader: false
-      })
-      wx.showToast({
-        title: '网络异常，请重新打开！',
-        icon: 'none'
-      })
-      console.log("没有成功")
-      // 未获取成功
-    }
+      console.log(this.data.regsList)
+    } 
   },
   async postRegistration(id) {
     let that = this
@@ -70,6 +107,7 @@ Page({
     })
     if (this.data.check) {
       let res = await new Promise((resolve, reject) => {
+        var _this = this
         wx.request({
           url: 'https://www.turing-cup.online/voteapp/activity/' + id,
           method: 'POST',
@@ -77,7 +115,17 @@ Page({
           success: ({ data }) => {
             resolve(data)
           },
-          fail: reject
+          fail() {
+            reject
+            wx.showToast({
+              title: '网络异常，提交失败请重试！',
+              icon: 'none',
+              duration: 2500
+            })
+            _this.setData({
+              submit: true
+            })
+          }
         })
       })
       if (res.success) {

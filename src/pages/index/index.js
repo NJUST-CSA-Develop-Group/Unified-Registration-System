@@ -7,21 +7,37 @@ const app = getApp()
 Page({
   data: {
     colorList: {
-      "院科协": "bg-gradual-green", 
-      "院学生会": "bg-gradual-blue", 
-      "院红会": "bg-gradual-red", 
-      "院团委": "bg-gradual-purple", 
-      "院新媒体": "bg-gradual-orange", 
+      "院科协": "bg-gradual-green",
+      "院学生会": "bg-gradual-blue",
+      "院红会": "bg-gradual-red",
+      "院团委": "bg-gradual-purple",
+      "院新媒体": "bg-gradual-orange",
       "院青协": "bg-gradual-pink",
-      "网安协会(社团)": "bg-gradual-brown"},
+      "网安协会(社团)": "bg-gradual-brown"
+    },
     activityList: [],
     statusBarHeight: app.globalData.statusBarHeight,
     loader: true
   },
-  onLoad(){
+  onLoad() {
+    // this.getActivity();
+    this.setData({
+      loader: false
+    })
+    this.setData({
+      activityList: [{
+        id: 123,
+        name: "某个比赛",
+        publisher: "院科协",
+        startTime: "2019-06-13 00:00:00",
+        endTime: "2019-12-13 00:00:00"
+      }]
+    })
+  },
+  onPullDownRefresh() {
     this.getActivity();
   },
-  entryCard(e){
+  entryCard(e) {
     var activityID = this.data.activityList[e.currentTarget.id].id
     var activityName = this.data.activityList[e.currentTarget.id].name
     var color = this.data.colorList[this.data.activityList[e.currentTarget.id].publisher]
@@ -34,10 +50,20 @@ Page({
       wx.request({
         url: 'https://www.turing-cup.online/voteapp/activity',
         method: 'GET',
-        success: ({ data }) => {
+        success: ({
+          data
+        }) => {
           resolve(data)
         },
-        fail: reject
+        // fail: reject
+        fail() {
+          reject
+          wx.showToast({
+            title: '网络异常，请刷新！',
+            icon: 'none',
+            duration: 2500
+          })
+        }
       })
     })
     if (res) {
@@ -48,15 +74,6 @@ Page({
         loader: false
       })
       console.log(res)
-    } else {
-      this.setData({
-        loader: false
-      })
-      wx.showToast({
-        title: '网络异常，请刷新！',
-        icon: 'none'
-      })
-      console.log("没有成功")
     }
   },
 })
