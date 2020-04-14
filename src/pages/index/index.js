@@ -1,54 +1,79 @@
 //index.js
+import regeneratorRuntime from '../../regenerator-runtime/runtime.js';
+
 //获取应用实例
 const app = getApp()
 
 Page({
   data: {
-    motto: 'Hello World',
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    colorList: {
+      "院科协": "bg-gradual-green",
+      "院学生会": "bg-gradual-blue",
+      "院红会": "bg-gradual-red",
+      "院团委": "bg-gradual-purple",
+      "院新媒体": "bg-gradual-orange",
+      "院青协": "bg-gradual-pink",
+      "网安协会(社团)": "bg-gradual-brown"
+    },
+    activityList: [],
+    statusBarHeight: app.globalData.statusBarHeight,
+    loader: true
   },
-  //事件处理函数
-  bindViewTap: function() {
-    wx.navigateTo({
-      url: '../logs/logs'
+  onLoad() {
+    // this.getActivity();
+    this.setData({
+      loader: false
+    })
+    this.setData({
+      activityList: [{
+        id: 123,
+        name: "某个比赛",
+        publisher: "院科协",
+        startTime: "2019-06-13 00:00:00",
+        endTime: "2019-12-13 00:00:00"
+      }]
     })
   },
-  onLoad: function () {
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse){
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
+  onPullDownRefresh() {
+    this.getActivity();
+  },
+  entryCard(e) {
+    var activityID = this.data.activityList[e.currentTarget.id].id
+    var activityName = this.data.activityList[e.currentTarget.id].name
+    var color = this.data.colorList[this.data.activityList[e.currentTarget.id].publisher]
+    wx.navigateTo({
+      url: '../registration/registration?id=' + activityID + '&name=' + activityName + '&color=' + color,
+    })
+  },
+  async getActivity() {
+    let res = await new Promise((resolve, reject) => {
+      wx.request({
+        url: 'https://www.turing-cup.online/voteapp/activity',
+        method: 'GET',
+        success: ({
+          data
+        }) => {
+          resolve(data)
+        },
+        // fail: reject
+        fail() {
+          reject
+          wx.showToast({
+            title: '网络异常，请刷新！',
+            icon: 'none',
+            duration: 2500
           })
         }
       })
+    })
+    if (res) {
+      this.setData({
+        activityList: res
+      })
+      this.setData({
+        loader: false
+      })
+      console.log(res)
     }
   },
-  getUserInfo: function(e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
-  }
 })

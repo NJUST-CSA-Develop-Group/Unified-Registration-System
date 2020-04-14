@@ -1,0 +1,164 @@
+/* component/tree/tree.wxss */
+@import "../colorUI/icon.wxss";
+
+.layout_horizontal{
+  height: 100rpx;
+  display: flex;
+  /*row 横向  column 列表  */
+  flex-direction: row;
+}
+
+.txt-border {
+  border: 1px solid;
+  border-color: #aaa;
+}
+
+.center {
+    padding: 10rpx 0 30rpx 0;
+}
+
+.text-gray, .line-gray, .lines-gray {
+  color: #aaa;
+}
+
+.cu-form-group {
+  /* background: #fff; */
+  padding: 1rpx 30rpx;
+  display: content;
+  align-items: center;
+  min-height: 100rpx;
+  justify-content: space-between;
+}
+.cu-form-group+.cu-form-group {
+  border-top: 1rpx solid #eee;
+}
+
+.cu-form-group .title {
+  text-align: justify;
+  padding-right: 30rpx;
+  font-size: 30rpx;
+  position: relative;
+  height: 60rpx;
+  line-height: 60rpx;
+}
+
+.cu-form-group.top {
+  align-items: baseline;
+}
+
+.cu-form-group input {
+  flex: 1;
+  font-size: 30rpx;
+  color: #555;
+  padding-right: 20rpx;
+  border-bottom: 1px solid;
+  border-color: #bbb;
+}
+
+.text-bold {
+  font-weight: bold;
+}
+
+switch, checkbox, radio {
+  position: relative;
+}
+
+switch::after, switch::before {
+  font-family: "iconfont";
+  content: "\e645";
+  position: absolute;
+  color: #fff !important;
+  top: 0%;
+  left: 0rpx;
+  font-size: 26rpx;
+  line-height: 26px;
+  width: 26px;
+  text-align: center;
+  pointer-events: none;
+  transform: scale(0, 0);
+  transition: all 0.3s ease-in-out 0s;
+  z-index: 9;
+}
+
+switch::before {
+  content: "\e646";
+  right: 0;
+  transform: scale(1, 1);
+  left: auto;
+}
+
+radio::before, checkbox::before {
+  font-family: "iconfont";
+  content: "\e645";
+  position: absolute;
+  color: #fff !important;
+  top: 50%;
+  margin-top: -8px;
+  right: 5px;
+  font-size: 32rpx;
+  line-height: 16px;
+  pointer-events: none;
+  transform: scale(1, 1);
+  transition: all 0.3s ease-in-out 0s;
+  z-index: 9;
+}
+
+switch .wx-switch-input {
+  border: none;
+  padding: 0 24px;
+  width: 48px;
+  height: 26px;
+  margin: 0;
+  border-radius: 100rpx;
+}
+
+switch .wx-switch-input:not([class*="bg-"]) {
+  background: #aaa !important;
+}
+
+switch .wx-switch-input::after {
+  margin: auto;
+  width: 26px;
+  height: 26px;
+  border-radius: 100rpx;
+  left: 0rpx;
+  top: 0rpx;
+  bottom: 0rpx;
+  position: absolute;
+  transform: scale(0.9, 0.9);
+  transition: all 0.1s ease-in-out 0s;
+}
+
+switch .wx-switch-input.wx-switch-input-checked::after {
+  margin: auto;
+  left: 22px;
+  box-shadow: none;
+  transform: scale(0.9, 0.9);
+}
+
+radio-group {
+  display: inline-block;
+}
+
+radio .wx-radio-input, checkbox .wx-checkbox-input {
+  margin: 0;
+  width: 24px;
+  height: 24px;
+}
+
+checkbox.round .wx-checkbox-input {
+  border-radius: 100rpx;
+}
+
+switch.radius .wx-switch-input::after, switch.radius .wx-switch-input,
+switch.radius .wx-switch-input::before {
+  border-radius: 10rpx;
+}
+
+switch .wx-switch-input::before, radio.radio::before,
+checkbox .wx-checkbox-input::before, radio .wx-radio-input::before {
+  display: none;
+}
+
+
+

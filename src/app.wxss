@@ -1,4 +1,22 @@
 /**app.wxss**/
+@import "component/loader/loaders.min.wxss";
+
+.loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex: 0 1 auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.line-scale>view {
+  background-color: rgb(82, 78, 78);
+}
 .container {
   height: 100%;
   display: flex;
@@ -8,3 +26,27 @@
   padding: 200rpx 0;
   box-sizing: border-box;
 } 
+.custom{
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  height: 45px;
+  background: #2C5CFF;
+  z-index: 999;
+}
+.custom text{
+  color: #fff;
+  font-size: 34rpx;
+  font-weight: 500;
+  max-width: 280rpx;
+}
+.empty_custom{
+  height: 45px;
+  width: 100%;
+}
+
+.bg-gradual-brown {
+  background-image: linear-gradient(45deg, #7c6f64, #3c3836);
+  color: #fff;
+}
