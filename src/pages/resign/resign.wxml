@@ -1,0 +1,20 @@
+<!--pages/resign/resign.wxml-->
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+  <view class="cu-bar fixed {{navColor}}" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+    <navigator class='action' open-type="navigateBack" delta="1" hover-class="none">
+      <text class='icon-back'></text> 
+      <text class='text-limit-short margin-left'>{{title}}</text>
+    </navigator>
+  </view>
+</view>
+
+
+<view class='loader' wx:if='{{loader}}'>
+  <view class='line-scale'>
+    <view></view>
+    <view></view>
+    <view></view>
+    <view></view>
+    <view></view>
+  </view>
+</view>

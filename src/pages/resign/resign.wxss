@@ -1,0 +1,3 @@
+/* pages/resign/resign.wxss */
+@import "../../component/colorUI/colorui.wxss";
+@import "../../component/colorUI/icon.wxss";

@@ -3,7 +3,10 @@
     "pages/index/index",
     "pages/logs/logs",
     "pages/registration/registration",
-    "component/tree/tree"
+    "component/tree/tree",
+    "pages/me/me",
+    "custom-tab-bar/index",
+    "pages/resign/resign"
   ],
   "window": {
     "navigationStyle": "custom",
@@ -12,5 +15,22 @@
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle": "black"
   },
-  "sitemapLocation": "sitemap.json"
+  "sitemapLocation": "sitemap.json",
+  "tabBar": {
+    "custom": true,
+    "color": "#000000",
+    "selectedColor": "#0081ff",
+    "backgroundColor": "#000000",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "活动列表"
+      },
+      {
+        "pagePath": "pages/me/me",
+        "text": "我的"
+      }
+    ]
+  },
+  "usingComponents": {}
 }

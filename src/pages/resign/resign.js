@@ -1,4 +1,4 @@
-// pages/registration/registration.js
+// pages/resign/resign.js
 import regeneratorRuntime from '../../regenerator-runtime/runtime.js';
 const app = getApp()
 Page({
@@ -17,47 +17,9 @@ Page({
     loader: true
   },
   onLoad: function (options) {
-    this.getRegistration(options.id)
     this.setData({
       loader: false
     })
-    // this.setData({
-    //   regsList: [
-    //     {
-    //       name: "性别",
-    //       type: 'sex',
-    //       // defaultValue?: string,
-    //       description: '请填写真实姓名',
-    //       tip: '哈哈哈哈哈哈',
-    //       require: true,
-    //       // case?: string[],
-    //       // range?: number[],
-    //       // subItem?: object[]
-    //     },
-    //     {
-    //       name: "姓名",
-    //       type: 'text',
-    //       // defaultValue?: string,
-    //       description: '请填写真实姓名',
-    //       tip: '哈哈哈哈哈哈',
-    //       require: true,
-    //       // case?: string[],
-    //       // range?: number[],
-    //       // subItem?: object[]
-    //     },
-    //     {
-    //       name: "姓名",
-    //       type: 'text',
-    //       // defaultValue?: string,
-    //       description: '请填写真实姓名',
-    //       tip: '哈哈哈哈哈哈',
-    //       require: true,
-    //       // case?: string[],
-    //       // range?: number[],
-    //       // subItem?: object[]
-    //     }
-    //   ]
-    // })
     this.setData({
       id: options.id
     })
@@ -75,7 +37,7 @@ Page({
   async getRegistration(id) {
     let res = await new Promise((resolve, reject) => {
       wx.request({
-        url: 'https://cong-onion.cn/urs/api/activity/'+id,
+        url: 'https://cong-onion.cn/urs/api/activity/' + id,
         method: 'GET',
         success: ({ data }) => {
           resolve(data)
@@ -98,7 +60,7 @@ Page({
         loader: false
       })
       console.log(this.data.regsList)
-    } 
+    }
   },
   async postRegistration(id) {
     let that = this
@@ -134,7 +96,7 @@ Page({
         })
         setTimeout(function () {
           that.back2list()
-        }, 1000)  
+        }, 1000)
       } else {
         wx.showToast({
           title: '请检查必填项或网络异常！',
@@ -154,8 +116,8 @@ Page({
       })
     }
   },
-  back2list(){
-    wx.navigateBack({      
+  back2list() {
+    wx.navigateBack({
     })
   },
   tapItem: function (e) {
@@ -164,7 +126,7 @@ Page({
   onSent: function (e) {
     this.data.paramC2P[e.detail.paramC2P.name] = e.detail.paramC2P.value
     // console.log(Object.keys(e.detail.paramC2P.value).length)
-    if (Object.keys(e.detail.paramC2P.value).length==0) {
+    if (Object.keys(e.detail.paramC2P.value).length == 0) {
       delete this.data.paramC2P[e.detail.paramC2P.name]
     }
     this.setData({

@@ -44,7 +44,7 @@
         <view class='title text-bold' style='margin: 20rpx;font-size: 35rpx'>{{model.name}}{{ model.require ? '(必填)' : ''}}</view>
         <view class='text-gray'>{{model.description}}</view>
         <checkbox-group class="margin-top" bindchange="_checkboxChange" style='padding-left: 10rpx;'>
-          <view class="cu-form-group layout_horizontal" wx:for="{{model.case}}" wx:key="{{index}}">
+          <view class="cu-form-group layout_horizontal" wx:for="{{model.case}}" wx:key="index">
             <view class='title'>{{model.case[index]}}</view>
             <checkbox class='round blue' value="{{index}}"></checkbox>
           </view>

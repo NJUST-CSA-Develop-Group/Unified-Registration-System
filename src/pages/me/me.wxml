@@ -1,0 +1,87 @@
+<!--pages/me/me.wxml-->
+<view class="cu-bar bg-blue light padding-top:{{statusBarHeight}}px" style="padding-top:{{statusBarHeight}}px">
+    <view class='action title-style-3 margin padding-top:{{statusBarHeight}}px'>
+      <text class='text-xl text-bold'> 个人设置 </text>
+      <text class='text-Abc text-gray self-end margin-left-sm'>URS</text>
+    </view>
+</view>
+
+<view wx:if='{{is_logined}}'>
+  <view class='solids-bottom padding-xs flex align-center'>
+    <view class='flex-sub text-center'>
+      <view class='padding'>
+        <icon type="info" size="60"></icon>
+      </view>
+      <view class='solid-bottom text-xl padding'>
+        <text class='text-black text-bold'>登录状态失效</text>
+      </view>
+      <view class='padding'>尚未登陆或登录信息过期，请重新登录</view>
+    </view>
+  </view>
+  <view class="padding flex flex-direction">
+    <button class='cu-btn bg-mauve light margin-tb-sm lg' bindtap="Login">登   录</button>
+  </view>
+</view>
+
+<view wx:else>
+    <view class="header bg-blue light">
+    <view class="user" hoverClass="none">
+      <view class="user_box">
+        <view catchtap="previewImage" class="logo">
+          <!-- <image src="{{userInfo.avatarUrl}}"></image> -->
+          <view class="cu-tag badge {{male==1?'icon-male bg-blue':'icon-female bg-pink'}}"></view>
+        </view>
+        <block wx:if="{{is_bind_schoolID}}">
+          <view class="user_info">
+            <view class="user_name"> 
+              <text>{{userInfo.nickName}}</text>
+              <image src="/images/main/vip.png"></image>
+            </view>
+            <view class="vip_expires">学号：{{scoolID}} </view>
+          </view>
+        </block>
+        <block wx:else>
+          <view class="user_info">
+            <view class="user_name">
+              <text>{{userInfo.nickName}}</text>
+            </view>
+            <view class="vip_expires">您还未绑定学号，请先
+              <span style="color:blue;">绑定学号</span>
+            </view>
+          </view>
+        </block>
+      </view>
+    </view>   
+  </view>
+
+  <block wx:if="{{is_bind_schoolID===false}}">
+    <view class="cu-form-group">
+      <view class='title'>学号绑定</view>
+      <input placeholder="请输入学号" class='radius' name='inputSchoolID' bindinput="bindInputSchoolID"></input>
+      <button class='cu-btn bg-green shadow' bindtap="SendSchoolID">确认</button>
+    </view>
+  </block>
+
+  <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg">
+    <view class="cu-item arrow">
+      <button class='cu-btn content' open-type='feedback'>
+        <image src="../../images/icon/order.png" class='png' mode='aspectFit'></image>
+        <text class='text-grey'>CSP免费报名资格申请结果查询</text>
+      </button>
+    </view>
+    <view class="cu-item arrow">
+      <navigator class='content' url='../test/list' hover-class='none'>
+        <image src="../../images/icon/order.png" class='png' mode='aspectFit'></image>
+        <text class='text-grey'>CSP分数查询(待开发...)</text>
+      </navigator>
+    </view>
+    <view class="cu-item arrow align-center">
+      <view class='content' bindtap='CopyLink' data-link='https://github.com/NJUST-CSA-Develop-Group/Unified-Registration-System'>
+        <image src="../../images/icon/social_github.png" class='png' mode='aspectFit'></image>
+        <text class='text-grey'> Github：意见反馈/参与项目 </text>
+      </view>
+    </view>
+  </view>
+
+</view>
+

@@ -8,7 +8,7 @@
   </view>
 </view>
 <view class="cu-card case">
-  <view wx:for="{{regsList}}" wx:key class="cu-item shadow">
+  <view wx:for="{{regsList}}" wx:key='index' class="cu-item shadow">
     <tree model='{{ regsList[index] }}' bind:tapitem='tapItem' bind:sent='onSent' bind:check='onCheck'></tree>
   </view>
 </view>
