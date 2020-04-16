@@ -5,9 +5,8 @@ Page({
 
   data: {
     is_logined: false,
-    is_bind_schoolID: false,
-    male: 1,
-    schoolID: '123'
+    is_bind_schoolID: true,
+    schoolID: 916106840117,
   },
 
   /**
@@ -15,12 +14,22 @@ Page({
    */
   onLoad: function (options) {
     this.CheckLogin()
+    this.GetUserInfo()
   },
 
   bindInputSchoolID(e){
     var id = e.detail.value
     this.setData({
       schoolID: id
+    })
+  },
+
+  go2resign() {
+    var activityID = 123
+    var activityName = 'CSP免费报名资格申请'
+    var color = 'bg-mauve'
+    wx.navigateTo({
+      url: '../resign/resign?id=' + activityID + '&name=' + activityName + '&color=' + color,
     })
   },
   
@@ -102,18 +111,30 @@ Page({
         is_logined: false
       })
       // userinfo
-      wx.getSetting({
-        success(res) {
-          if (res.authSetting['scope.userInfo']) {
-            // 已经授权，可以直接调用 getUserInfo 获取头像昵称
-            wx.getUserInfo({
-              success: function (res) {
-                console.log(res.userInfo)
-              }
-            })
-          }
-        }
-      })
+      // let res2 = await new Promise((resolve, reject) => {
+      //   wx.getUserInfo({
+      //     success: function (res) {
+      //       console.log(res.userInfo)
+      //     }
+      //   })
+        // wx.getSetting({
+        //   success(res) {
+        //     if (res.authSetting['scope.userInfo']) {
+        //       // 已经授权，可以直接调用 getUserInfo 获取头像昵称
+        //       wx.getUserInfo({
+        //         success: function (res) {
+        //           console.log(res.userInfo)
+        //         }
+        //       })
+        //     }
+        //   }
+        // })
+      // })
+      // if (res2) {
+      //   this.setData({
+      //     userInfo: res2
+      //   })
+      // }
     }
   },
 
@@ -129,6 +150,23 @@ Page({
     })
     if (res) {
       // 成功的逻辑
+    }
+  },
+
+  async GetUserInfo() {
+    let res = await new Promise((resolve, reject) => {
+      wx.getUserInfo({
+        success: function (res) {
+          resolve(res)
+        }
+      })
+    })
+    if (res) {
+      console.log(res.userInfo)
+      this.setData({
+        userInfo: res.userInfo
+      })
+
     }
   }
 })

@@ -16,13 +16,13 @@ Component({
       pagePath: "/pages/me/me",
       iconPath: "../images/icon/user (1).png",
       selectedIconPath: "../images/icon/user (2).png",
-      text: "个人"
+      text: "个人中心"
     }
     ]
   },
   ready:function (e){
-    var pages = getCurrentPages() //获取加载的页面
-    var currentPage = pages[pages.length - 1] //获取当前页面的对象
+    var pages = getCurrentPages()
+    var currentPage = pages[pages.length - 1]
     var route = currentPage.route
     if (route === 'pages/index/index') {
       this.setData({
