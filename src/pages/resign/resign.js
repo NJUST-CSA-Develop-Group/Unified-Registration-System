@@ -14,12 +14,13 @@ Page({
     paramC2P: {},
     check: true,
     submit: true,
-    loader: true
+    loader: true,
+    resign_status: false
   },
   onLoad: function (options) {
-    this.setData({
-      loader: false
-    })
+    // this.setData({
+    //   loader: false
+    // })
     this.setData({
       id: options.id
     })
@@ -33,33 +34,40 @@ Page({
       frontColor: '#ffffff',
       backgroundColor: '#000000'
     })
+    this.getResignStatus()
   },
-  async getRegistration(id) {
+  async getResignStatus() {
     let res = await new Promise((resolve, reject) => {
       wx.request({
-        url: 'https://cong-onion.cn/urs/api/activity/' + id,
+        url: 'https://cong-onion.cn/urs/api/csp/audit/status',
         method: 'GET',
         success: ({ data }) => {
           resolve(data)
         },
         fail() {
           reject
-          wx.showToast({
-            title: '网络异常，请刷新！',
-            icon: 'none',
-            duration: 2500
+          wx.showModal({
+            title: '获取失败！',
+            content: '请检查网络或稍后重试'
           })
         }
       })
     })
     if (res) {
       this.setData({
-        regsList: res
-      })
-      this.setData({
         loader: false
       })
-      console.log(this.data.regsList)
+      if (res.status == "STATUS_CLOSE") {
+        this.setData({
+          resign_status: false
+        })
+      }
+      else {
+        this.setData({
+          resign_status: true
+        })
+      }
+      console.log(this.data.resign_status)
     }
   },
   async postRegistration(id) {
@@ -119,20 +127,6 @@ Page({
   back2list() {
     wx.navigateBack({
     })
-  },
-  tapItem: function (e) {
-    console.log('index接收到的itemid: ' + e.detail.itemid);
-  },
-  onSent: function (e) {
-    this.data.paramC2P[e.detail.paramC2P.name] = e.detail.paramC2P.value
-    // console.log(Object.keys(e.detail.paramC2P.value).length)
-    if (Object.keys(e.detail.paramC2P.value).length == 0) {
-      delete this.data.paramC2P[e.detail.paramC2P.name]
-    }
-    this.setData({
-      paramC2P: this.data.paramC2P
-    })
-    console.log(this.data.paramC2P)
   },
   onCheck: function (e) {
     this.setData({

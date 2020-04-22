@@ -9,21 +9,46 @@
 </view>
 
 
-<view>
-  <view class='solids-bottom padding-xs flex align-center'>
-    <view class='flex-sub text-center'>
-      <view class='padding'>
-        <icon type="cancel" size="60"></icon>
+<view wx:if='{{loader===false}}'>
+  <view wx:if='{{resign_status}}'>
+    <view class='solids-bottom padding-xs flex align-center'>
+      <view class='flex-sub text-center' wx:if='{{is_pass}}'>
+        <view class='padding'>
+          <icon type="cancel" size="60"></icon>
+        </view>
+        <view class='solid-bottom text-xl padding'>
+          <text class='text-black text-bold'>申请被驳回</text>
+        </view>
+        <view class='padding'>你不满足免费报名资格申报条件</view>
+        <view class='padding'>上次申请时间：2020-04-15</view>
       </view>
-      <view class='solid-bottom text-xl padding'>
-        <text class='text-black text-bold'>申请被驳回</text>
+      <view class='flex-sub text-center' wx:else>
+        <view class='padding'>
+          <icon type="success" size="60"></icon>
+        </view>
+        <view class='solid-bottom text-xl padding'>
+          <text class='text-black text-bold'>申请通过！</text>
+        </view>
+        <view class='padding'>你已获得本次免费报名资格</view>
+        <view class='padding'>上次申请时间：2020-04-15</view>
       </view>
-      <view class='padding'>你不满足免费报名资格申报条件</view>
-      <view class='padding'>上次申请时间：2020-04-15</view>
     </view>
-  </view>
-  <view class="padding flex flex-direction">
-    <button class='cu-btn bg-mauve light margin-tb-sm lg' bindtap="Login">提 交 申 请</button>
+    <view class="padding flex flex-direction">
+      <button class='cu-btn bg-mauve light margin-tb-sm lg' bindtap="Login">提 交 申 请</button>
+    </view>
+  </view> 
+  <view wx:else>
+    <view class='solids-bottom padding-xs flex align-center'>
+      <view class='flex-sub text-center'>
+        <view class='padding'>
+          <icon type="warn" size="60"></icon>
+        </view>
+        <view class='solid-bottom text-xl padding'>
+          <text class='text-black text-bold'>本次申请尚未开始</text>
+        </view>
+        <view class='padding'>请静候通知并检查是否符合申请资格</view>
+      </view>
+    </view> 
   </view>
 </view>
 

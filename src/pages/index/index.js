@@ -22,9 +22,9 @@ Page({
   },
   onLoad() {
     this.getActivity();
-    this.setData({
-      loader: false
-    })
+    // this.setData({
+    //   loader: false
+    // })
     this.setData({
       resignList: [{
         id: 123,

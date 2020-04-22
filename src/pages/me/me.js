@@ -4,9 +4,9 @@ import regeneratorRuntime from '../../regenerator-runtime/runtime.js';
 Page({
 
   data: {
-    is_logined: false,
-    is_bind_schoolID: true,
-    schoolID: 916106840117,
+    is_logined: true,
+    is_bind_schoolID: false,
+    schoolID: 916106950117,
   },
 
   /**
@@ -14,7 +14,7 @@ Page({
    */
   onLoad: function (options) {
     this.CheckLogin()
-    this.GetUserInfo()
+    // this.GetUserInfo()
   },
 
   bindInputSchoolID(e){
@@ -52,7 +52,8 @@ Page({
           if (res.code) {
             //发起网络请求
             wx.request({
-              url: 'https://cong-onion.cn/urs/api/client/login',
+              url: 'https://cong-onion.cn/urs/api/student/login',
+              method: 'POST',
               data: {
                 code: res.code
               },
@@ -83,90 +84,162 @@ Page({
         }
       })
     })
-    if (res) {
-      if (res.schoolId !== null) {
+    if (res.statusCode==200) {
+      console.log(res)
+      if (res.data.schoolId && res.data.schoolId != '') {
         this.setData({
           is_bind_schoolID: true
         })
         this.setData({
-          is_logined: false
+          schoolID: res.data.schoolId
         })
-        // userinfo
       }
+      this.setData({
+        is_logined: false
+      })
+      wx.setStorageSync('session_id', res.header['Set-Cookie'])
+      this.GetUserInfo()
+    }
+    else {
+      wx.showModal({
+        title: '登陆失败！',
+        content: '请稍后重试或联系管理员解决'
+      })
     }
   },
 
   async CheckLogin() {
+    var session_id = wx.getStorageSync('session_id')
+    console.log(session_id)
+    if (session_id) {
+      console.log(session_id)
+      this.setData({
+        is_logined: false
+      })
+      this.GetUserInfo()
+    }
+    // let res = await new Promise((resolve, reject) => {
+    //   wx.checkSession({
+    //     success: function(){
+    //       var data = 'checkSessionSuccess'
+    //       resolve(data)
+    //     },
+    //     fail: function(){
+    //       console.log('checkSessionFail')
+    //     }
+    //   })
+    // })
+    // if (res) {
+    //   console.log(res)
+    //   this.setData({
+    //     is_logined: false
+    //   })
+    //   // userinfo
+    //   let res2 = await new Promise((resolve, reject) => {
+    //     wx.getUserInfo({
+    //       success: function (res) {
+    //         resolve(res.userInfo)
+    //        }
+    //     })
+    //     // wx.getSetting({
+    //     //   success(res) {
+    //     //     if (res.authSetting['scope.userInfo']) {
+    //     //       // 已经授权，可以直接调用 getUserInfo 获取头像昵称
+    //     //       wx.getUserInfo({
+    //     //         success: function (res) {
+    //     //           console.log(res.userInfo)
+    //     //           resolve(res)
+    //     //         }
+    //     //       })
+    //     //     }
+    //     //     resolve(res)
+    //     //   }
+    //     // })
+    //   })
+    //   if (res2) {
+    //     console.log(res2)
+    //     this.setData({
+    //       userInfo: res2
+    //     })
+    //   }
+    // }
+    // else{
+    //   console.log('checkLoginFail')
+    // }
+  },
+
+  async SendSchoolID() {
+    wx.setStorageSync("schoolID",this.data.schoolID)
+    console.log(wx.getStorageSync('session_id'))
     let res = await new Promise((resolve, reject) => {
-      wx.checkSession({
-        success: ({
-          data
-        }) => {
+      wx.request({
+        url: 'https://cong-onion.cn/urs/api/student/schoolid',
+        method: 'POST',
+        header: {
+          'cookie': wx.getStorageSync('session_id')
+        },
+        data:{
+          schoolId: wx.getStorageSync('schoolID')
+        },
+        success:function (data) {
           resolve(data)
         }
       })
     })
-    if (res) {
+    console.log(res)
+    if (res.statusCode == 200) {
+      console.log(res)
       this.setData({
-        is_logined: false
+        is_bind_schoolID: true
       })
-      // userinfo
-      // let res2 = await new Promise((resolve, reject) => {
-      //   wx.getUserInfo({
-      //     success: function (res) {
-      //       console.log(res.userInfo)
-      //     }
-      //   })
-        // wx.getSetting({
-        //   success(res) {
-        //     if (res.authSetting['scope.userInfo']) {
-        //       // 已经授权，可以直接调用 getUserInfo 获取头像昵称
-        //       wx.getUserInfo({
-        //         success: function (res) {
-        //           console.log(res.userInfo)
-        //         }
-        //       })
-        //     }
-        //   }
-        // })
-      // })
-      // if (res2) {
-      //   this.setData({
-      //     userInfo: res2
-      //   })
-      // }
     }
-  },
-
-  async SendSchoolID() {
-    console.log(this.data.schoolID)
-    let res = await new Promise((resolve, reject) => {
-      wx.request({
-        url: 'https://cong-onion.cn/urs/api/csp/scoolid',
-        data:{
-          schoolId: this.schoolID
-        }
+    else {
+      wx.showModal({
+        title: '绑定失败！',
+        content: '请稍后重试或联系管理员解决'
       })
-    })
-    if (res) {
-      // 成功的逻辑
     }
   },
 
   async GetUserInfo() {
     let res = await new Promise((resolve, reject) => {
-      wx.getUserInfo({
-        success: function (res) {
-          resolve(res)
+      wx.getSetting({
+        success(res) {
+          console.log('getsetting success')
+          if (res.authSetting['scope.userInfo']) {
+            console.log('getsetting success in if')
+            wx.getUserInfo({
+              success: function (res) {
+                console.log('getuinfo-success')
+                wx.setStorageSync('userInfo', res.userInfo)
+                resolve(res)
+              },
+              fail: (res) => {
+                console.log('getuinfo-fail')
+                reject
+              }
+            })
+          }
         }
-      })
+      })  
     })
-    if (res) {
-      console.log(res.userInfo)
-      this.setData({
-        userInfo: res.userInfo
-      })
+    this.setData({
+      userInfo: wx.getStorageSync('userInfo')
+    })
+  },
 
+  bindGetUserInfo: function (e) {
+    console.log(e.detail.userInfo)
+    if (e.detail.userInfo) {
+      this.setData({
+        userInfo: e.detail.userInfo
+      })
+      wx.setStorageSync('userInfo', e.detail.userInfo)
+    } else {
+      wx.showModal({
+        title: '用户信息获取失败！',
+        content: '请清除小程序缓存后重试'
+      })
     }
   }
 })
