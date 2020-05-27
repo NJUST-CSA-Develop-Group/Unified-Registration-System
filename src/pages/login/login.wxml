@@ -1,0 +1,16 @@
+<!--pages/login/login.wxml-->
+<view class='solids-bottom padding-xs flex align-center'>
+    <view class='flex-sub text-center'>
+      <view class='padding'>
+        <icon type="warn" size="60"></icon>
+      </view>
+      <view class='solid-bottom text-xl padding'>
+        <text class='text-black text-bold'>登录状态失效</text>
+      </view>
+      <view class='padding'>尚未登陆或登录信息过期，请重新登录</view>
+    </view>
+  </view>
+  <view class="padding flex flex-direction">
+    <button open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo" 
+        class='cu-btn bg-blue light margin-tb-sm lg' bindtap="Login">登   录</button>
+  </view>

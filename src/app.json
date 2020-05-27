@@ -6,7 +6,8 @@
     "component/tree/tree",
     "pages/me/me",
     "custom-tab-bar/index",
-    "pages/resign/resign"
+    "pages/resign/resign",
+    "pages/login/login"
   ],
   "window": {
     "navigationStyle": "custom",

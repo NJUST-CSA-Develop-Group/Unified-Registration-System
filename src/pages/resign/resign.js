@@ -66,11 +66,40 @@ Page({
         this.setData({
           resign_status: true
         })
+        this.getResignHistory()
       }
       console.log(this.data.resign_status)
+      console.log(wx.getStorageSync('session_id'))
     }
   },
-  async postRegistration(id) {
+  async getResignHistory() {
+    let res = await new Promise((resolve, reject) => {
+      wx.request({
+        url: 'https://cong-onion.cn/urs/api/csp/free/audit',
+        method: 'GET',
+        header:{
+          'cookie': wx.getStorageSync('session_id')
+        },
+        success: ({ data }) => {
+          resolve(data)
+        },
+        fail() {
+          reject
+          wx.showModal({
+            title: '获取申请记录失败！',
+            content: '请检查网络或稍后重试'
+          })
+        }
+      })
+    })
+    if (res) {
+      console.log(res)
+      this.setData({
+        resign_history: res
+      })
+    }
+  },
+  async doResign() {
     let that = this
     this.setData({
       submit: false
@@ -124,21 +153,9 @@ Page({
       })
     }
   },
-  back2list() {
-    wx.navigateBack({
-    })
-  },
-  onCheck: function (e) {
+  _inputChange: function (e) {
     this.setData({
-      check: e.detail.check
+      reason: e.detail.value
     })
-    this.triggerEvent('check', {
-      check: this.data.check
-    }
-    );
-    console.log(this.data.check)
   },
-  regSubmit: function (e) {
-    this.postRegistration(this.data.id)
-  }
 })
