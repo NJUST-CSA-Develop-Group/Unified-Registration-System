@@ -24,12 +24,12 @@ Page({
     })
   },
 
-  go2resign() {
+  go2resign_history() {
     var activityID = 123
     var activityName = 'CSP免费报名资格申请'
     var color = 'bg-mauve'
     wx.navigateTo({
-      url: '../resign/resign?id=' + activityID + '&name=' + activityName + '&color=' + color,
+      url: '../resign_history/resign_history?id=' + activityID + '&name=' + activityName + '&color=' + color,
     })
   },
   
@@ -111,61 +111,22 @@ Page({
   async CheckLogin() {
     var session_id = wx.getStorageSync('session_id')
     console.log(session_id)
+    var school_id = wx.getStorageSync('schoolID')
+    console.log(school_id)
     if (session_id) {
-      console.log(session_id)
       this.setData({
         is_logined: false
       })
       this.GetUserInfo()
     }
-    // let res = await new Promise((resolve, reject) => {
-    //   wx.checkSession({
-    //     success: function(){
-    //       var data = 'checkSessionSuccess'
-    //       resolve(data)
-    //     },
-    //     fail: function(){
-    //       console.log('checkSessionFail')
-    //     }
-    //   })
-    // })
-    // if (res) {
-    //   console.log(res)
-    //   this.setData({
-    //     is_logined: false
-    //   })
-    //   // userinfo
-    //   let res2 = await new Promise((resolve, reject) => {
-    //     wx.getUserInfo({
-    //       success: function (res) {
-    //         resolve(res.userInfo)
-    //        }
-    //     })
-    //     // wx.getSetting({
-    //     //   success(res) {
-    //     //     if (res.authSetting['scope.userInfo']) {
-    //     //       // 已经授权，可以直接调用 getUserInfo 获取头像昵称
-    //     //       wx.getUserInfo({
-    //     //         success: function (res) {
-    //     //           console.log(res.userInfo)
-    //     //           resolve(res)
-    //     //         }
-    //     //       })
-    //     //     }
-    //     //     resolve(res)
-    //     //   }
-    //     // })
-    //   })
-    //   if (res2) {
-    //     console.log(res2)
-    //     this.setData({
-    //       userInfo: res2
-    //     })
-    //   }
-    // }
-    // else{
-    //   console.log('checkLoginFail')
-    // }
+    if (school_id) {
+      this.setData({
+        is_bind_schoolID: true
+      })
+      this.setData({
+        schoolID: school_id
+      })
+    }
   },
 
   async SendSchoolID() {

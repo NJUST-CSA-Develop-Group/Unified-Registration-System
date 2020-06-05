@@ -63,7 +63,7 @@
 
   <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg">
     <view class="cu-item arrow">
-      <button class='cu-btn content' open-type='feedback' bindtap='go2resign'>
+      <button class='cu-btn content' open-type='feedback' bindtap='go2resign_history'>
         <image src="../../images/icon/order.png" class='png' mode='aspectFit'></image>
         <text class='text-grey'>CSP免费报名资格申请结果查询</text>
       </button>

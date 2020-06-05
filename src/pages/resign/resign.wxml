@@ -42,9 +42,11 @@
             <icon type="warn" size="60"></icon>
           </view>
           <view class='solid-bottom text-xl padding'>
-            <text class='text-black text-bold'>你还没有提交过申请</text>
+            <text class='text-black text-bold'>请勿重复提交</text>
           </view>
-          <view class='padding'>请填写申请理由并点击提交按钮开始申请</view>
+          <view class='padding'>提交前请先到个人中心查看申请记录</view>
+          <view class='padding'>你的免费资格剩余{{resign_free_count}}次</view>
+          <view class='padding'>免费资格来源：{{resign_free_reason}}</view>
         </view>
       </view> 
     </view>

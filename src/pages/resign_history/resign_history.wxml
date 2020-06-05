@@ -1,0 +1,33 @@
+<!--pages/resign_history/resign_history.wxml-->
+<view class="cu-custom" style="height:{{CustomBar}}px;">
+  <view class="cu-bar fixed {{navColor}}" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+    <navigator class='action' open-type="navigateBack" delta="1" hover-class="none">
+      <text class='icon-back'></text> 
+      <text class='text-limit-short margin-left'>{{title}}</text>
+    </navigator>
+  </view>
+</view>
+
+<view class="cu-timeline" wx:if='{{loader===false}}'>
+  <view class="cu-item" wx:for='{{resign_history}}' wx:key='index'>
+    <view class="content {{card_color[resign_history[index].result]}} light">
+      <view class="cu-capsule radius">
+        <view class="cu-tag bg-cyan">{{result_trans[resign_history[index].result]}}</view>
+        <view class="cu-tag line-cyan">{{resign_history[index].submitTime}}</view>
+      </view>
+      <view class='margin-top' wx:if='{{resign_history[index].comment!==null}}'>
+        {{resign_history[index].comment}}
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class='loader' wx:if='{{loader}}'>
+  <view class='line-scale'>
+    <view></view>
+    <view></view>
+    <view></view>
+    <view></view>
+    <view></view>
+  </view>
+</view>

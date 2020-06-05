@@ -7,7 +7,8 @@
     "pages/me/me",
     "custom-tab-bar/index",
     "pages/resign/resign",
-    "pages/login/login"
+    "pages/login/login",
+    "pages/resign_history/resign_history"
   ],
   "window": {
     "navigationStyle": "custom",

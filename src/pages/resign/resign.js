@@ -34,7 +34,10 @@ Page({
       frontColor: '#ffffff',
       backgroundColor: '#000000'
     })
+  },
+  onShow: function () {
     this.getResignStatus()
+    this.getResignFree()
   },
   async getResignStatus() {
     let res = await new Promise((resolve, reject) => {
@@ -80,8 +83,8 @@ Page({
         header:{
           'cookie': wx.getStorageSync('session_id')
         },
-        success: ({ data }) => {
-          resolve(data)
+        success: (res) => {
+          resolve(res)
         },
         fail() {
           reject
@@ -92,10 +95,15 @@ Page({
         }
       })
     })
-    if (res) {
+    if (res.statusCode == 401) {
+      wx.navigateTo({
+        url: '../login/login',
+      })
+    }
+    if (res.data) {
       console.log(res)
       this.setData({
-        resign_history: res
+        resign_history: res.data.data
       })
     }
   },
@@ -105,14 +113,18 @@ Page({
       submit: false
     })
     if (this.data.check) {
+      console.log(wx.getStorageSync('session_id'))
       let res = await new Promise((resolve, reject) => {
         var _this = this
         wx.request({
-          url: 'https://cong-onion.cn/urs/api/activity/' + id,
+          url: 'https://cong-onion.cn/urs/api/csp/free/audit',
           method: 'POST',
-          data: this.data.paramC2P,
-          success: ({ data }) => {
-            resolve(data)
+          header: {
+            'cookie': wx.getStorageSync('session_id')
+          },
+          data: {reason: this.data.reason},
+          success: (res) => {
+            resolve(res)
           },
           fail() {
             reject
@@ -127,14 +139,21 @@ Page({
           }
         })
       })
-      if (res.success) {
+      if (res.statusCode == 200) {
         wx.showToast({
           title: '提交成功！',
         })
         setTimeout(function () {
-          that.back2list()
+          wx.navigateBack()
+          var activityID = 123
+          var activityName = 'CSP免费报名资格申请'
+          var color = 'bg-mauve'
+          wx.navigateTo({
+            url: '../resign_history/resign_history?id=' + activityID + '&name=' + activityName + '&color=' + color,
+          })
         }, 1000)
       } else {
+        console.log(res)
         wx.showToast({
           title: '请检查必填项或网络异常！',
           icon: 'none'
@@ -157,5 +176,37 @@ Page({
     this.setData({
       reason: e.detail.value
     })
+  },
+  async getResignFree() {
+    let res = await new Promise((resolve, reject) => {
+      wx.request({
+        url: 'https://cong-onion.cn/urs/api/csp/free',
+        method: 'GET',
+        header: {
+          'cookie': wx.getStorageSync('session_id')
+        },
+        success: ({ data }) => {
+          resolve(data)
+        },
+        fail() {
+          reject
+          wx.showModal({
+            title: '获取失败！',
+            content: '请检查网络或稍后重试'
+          })
+        }
+      })
+    })
+    if (res) {
+      this.setData({
+        loader: false
+      })
+      this.setData({
+        resign_free_count: res.freeCount
+      })
+      this.setData({
+        resign_free_reason: res.freeReason
+      })
+    }
   },
 })
