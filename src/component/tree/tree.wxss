@@ -1,6 +1,18 @@
 /* component/tree/tree.wxss */
 @import "../colorUI/icon.wxss";
 
+textarea {
+  width: calc(100% - 16px);
+}
+
+.title.radio {
+  display: inline-block;
+}
+
+.picker {
+  display: inline-block;
+}
+
 .layout_horizontal{
   height: 100rpx;
   display: flex;
